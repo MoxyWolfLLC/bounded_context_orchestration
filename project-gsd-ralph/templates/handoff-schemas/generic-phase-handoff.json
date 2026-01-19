@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generic Phase Handoff",
+  "description": "Standard inter-phase communication schema for GSD + Ralph Loop workflows",
+  "type": "object",
+  "required": ["phase_id", "task_id", "status", "completion_promise", "summary", "next_action"],
+  "properties": {
+    "phase_id": {
+      "type": "integer",
+      "description": "Phase number (1-indexed)",
+      "minimum": 1
+    },
+    "task_id": {
+      "type": "string",
+      "description": "Task identifier (e.g., '2.3')",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["COMPLETE", "IN_PROGRESS", "BLOCKED"],
+      "description": "Current task status"
+    },
+    "completion_promise": {
+      "type": "string",
+      "description": "Machine-verifiable completion marker (e.g., 'EXTRACTION_COMPLETE')",
+      "maxLength": 50
+    },
+    "promise_met": {
+      "type": "boolean",
+      "description": "Whether the completion promise was found in output"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Compressed summary of what was accomplished",
+      "maxLength": 500
+    },
+    "key_outputs": {
+      "type": "array",
+      "description": "List of files or artifacts produced",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "File path relative to project root"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["file", "json", "deliverable", "handoff"]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 100
+          }
+        },
+        "required": ["path", "type"]
+      },
+      "maxItems": 10
+    },
+    "data": {
+      "type": "object",
+      "description": "Structured data for next phase consumption",
+      "additionalProperties": true
+    },
+    "context_hint": {
+      "type": "string",
+      "description": "One-sentence hint for next phase about what to focus on",
+      "maxLength": 100
+    },
+    "next_action": {
+      "type": "string",
+      "description": "What should happen next",
+      "maxLength": 200
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of handoff creation"
+    }
+  },
+  "additionalProperties": false,
+
+  "examples": [
+    {
+      "phase_id": 1,
+      "task_id": "1.3",
+      "status": "COMPLETE",
+      "completion_promise": "ANALYSIS_COMPLETE",
+      "promise_met": true,
+      "summary": "Analyzed 6 GSD skills documenting architecture, mechanics, and integration points. Key finding: Ralph Loop bounds context to ~3500 tokens per iteration.",
+      "key_outputs": [
+        {
+          "path": "research/GSD-RALPH-RESEARCH.md",
+          "type": "deliverable",
+          "description": "Comprehensive research document"
+        }
+      ],
+      "data": {
+        "skills_analyzed": 6,
+        "token_budget": 3500,
+        "principles_identified": 7
+      },
+      "context_hint": "Framework analysis complete; ready for theoretical synthesis.",
+      "next_action": "Proceed to Task 1.4: Supporting Skills Analysis",
+      "timestamp": "2026-01-19T14:30:00Z"
+    }
+  ]
+}

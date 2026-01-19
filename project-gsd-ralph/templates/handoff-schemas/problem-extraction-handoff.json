@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Problem Extraction Handoff",
+  "description": "Handoff from problem-statement-extractor to problem-awareness-discovery",
+  "type": "object",
+  "required": ["problem_statement", "searchable_elements", "user_confirmed"],
+  "properties": {
+    "problem_statement": {
+      "type": "object",
+      "description": "Five-sentence validated problem statement",
+      "required": ["problem", "context", "impact", "evidence", "success"],
+      "properties": {
+        "problem": {
+          "type": "string",
+          "description": "Core issue in one sentence",
+          "maxLength": 200
+        },
+        "context": {
+          "type": "string",
+          "description": "Who/when/where the problem occurs",
+          "maxLength": 200
+        },
+        "impact": {
+          "type": "string",
+          "description": "Consequences of the problem",
+          "maxLength": 200
+        },
+        "evidence": {
+          "type": "string",
+          "description": "Data or analysis supporting the problem exists",
+          "maxLength": 200
+        },
+        "success": {
+          "type": "string",
+          "description": "What 'solved' looks like",
+          "maxLength": 200
+        }
+      },
+      "additionalProperties": false
+    },
+    "searchable_elements": {
+      "type": "object",
+      "description": "Elements optimized for search queries",
+      "required": ["core_pain", "symptom", "consequence"],
+      "properties": {
+        "core_pain": {
+          "type": "string",
+          "description": "Primary pain point in search-friendly language",
+          "maxLength": 100
+        },
+        "symptom": {
+          "type": "string",
+          "description": "Observable symptom of the problem",
+          "maxLength": 100
+        },
+        "consequence": {
+          "type": "string",
+          "description": "Negative outcome users experience",
+          "maxLength": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "user_confirmed": {
+      "type": "boolean",
+      "description": "Whether user explicitly confirmed the problem statement"
+    },
+    "validation_scores": {
+      "type": "object",
+      "description": "Optional scores from validation checklist",
+      "properties": {
+        "clearly_stated": {"type": "boolean"},
+        "affected_parties_identified": {"type": "boolean"},
+        "context_specified": {"type": "boolean"},
+        "impact_articulated": {"type": "boolean"},
+        "evidence_cited": {"type": "boolean"},
+        "success_criteria_defined": {"type": "boolean"},
+        "actionable": {"type": "boolean"},
+        "specific": {"type": "boolean"},
+        "separates_problem_solution": {"type": "boolean"}
+      }
+    },
+    "suspected_icp": {
+      "type": "string",
+      "description": "Initial guess at ideal customer profile",
+      "maxLength": 150
+    },
+    "industry_context": {
+      "type": "string",
+      "description": "Industry or domain context",
+      "maxLength": 100
+    },
+    "completion_promise": {
+      "type": "string",
+      "const": "EXTRACTION_COMPLETE"
+    }
+  },
+  "additionalProperties": false,
+
+  "examples": [
+    {
+      "problem_statement": {
+        "problem": "AI developers lose quality and context when chaining multiple LLM calls in complex workflows.",
+        "context": "Occurs in production AI systems with 4+ sequential phases, particularly document generation and research pipelines.",
+        "impact": "Projects fail in later phases, requiring restart; estimated 30% productivity loss on complex projects.",
+        "evidence": "Phase 1 research documented attention degradation after 30-40K accumulated tokens.",
+        "success": "Workflows of arbitrary complexity complete with consistent quality across all phases."
+      },
+      "searchable_elements": {
+        "core_pain": "LLM context window overflow",
+        "symptom": "quality degradation in multi-step AI workflows",
+        "consequence": "failed AI projects, wasted development time"
+      },
+      "user_confirmed": true,
+      "validation_scores": {
+        "clearly_stated": true,
+        "affected_parties_identified": true,
+        "context_specified": true,
+        "impact_articulated": true,
+        "evidence_cited": true,
+        "success_criteria_defined": true,
+        "actionable": true,
+        "specific": true,
+        "separates_problem_solution": true
+      },
+      "suspected_icp": "AI engineers building complex LLM applications at startups and enterprises",
+      "industry_context": "AI/ML software development",
+      "completion_promise": "EXTRACTION_COMPLETE"
+    }
+  ]
+}

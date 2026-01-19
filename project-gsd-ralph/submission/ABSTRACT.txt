@@ -1,0 +1,17 @@
+TITLE:
+Bounded Context Orchestration: A Framework for Multi-Phase LLM Workflows Without Context Exhaustion
+
+ABSTRACT:
+Large Language Models excel at individual tasks but degrade when chained across multiple phases. As context accumulates – 4K tokens becoming 12K becoming 39K – attention scatters and quality silently collapses. This paper identifies context exhaustion as a distinct failure mode and presents Bounded Context Orchestration (BCO) as solution.
+
+BCO treats the LLM as a stateless function with hard input limits (~3,500 tokens per iteration). State externalizes to persistent files. Outputs compress to schema-enforced handoffs. Progress verifies through machine-readable completion promises. We implement BCO through the GSD (Get Shit Done) framework paired with the Ralph Loop execution pattern.
+
+We articulate seven mutually reinforcing design principles: file-based persistence, bounded context execution, completion promises, summarize-don't-transcribe compression, human-in-the-loop verification, two-mode planning, and schema-enforced handoffs. We validate BCO by using it to write this paper – a six-phase project spanning fifty-plus bounded iterations that maintained consistent quality throughout.
+
+While long-context models push back degradation thresholds and RAG optimizes retrieval selection, neither bounds total context per operation. BCO fills this gap, enabling arbitrarily complex workflows through simple file-based infrastructure without quality loss.
+
+KEYWORDS:
+Large Language Models, Context Management, Workflow Orchestration, State Persistence, Multi-Agent Systems, Prompt Engineering, Attention Degradation, File-Based Persistence
+
+WORD COUNT:
+~6,700 words (excluding references and appendices)

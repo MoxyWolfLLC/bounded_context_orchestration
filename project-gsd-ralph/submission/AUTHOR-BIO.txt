@@ -1,0 +1,13 @@
+AUTHOR BIO:
+
+Dorian Crutcher is the founder of MoxyWolf LLC, a consulting practice focused on transforming bold ideas into high-integrity systems. With over 22 years of experience building industry standards at Unified Compliance, Dorian brings deep expertise in systems thinking, governance frameworks, and technical architecture.
+
+His work spans compliance automation, AI workflow design, and the intersection of structured methodology with creative problem-solving. MoxyWolf channels "wild intelligence through structured recursion" – an approach evident in the GSD + Ralph Loop framework presented in this paper.
+
+Dorian develops practical solutions for complex problems, preferring simplicity over infrastructure weight. The Bounded Context Orchestration methodology emerged from years of watching ambitious AI projects degrade under their own context load, and a refusal to accept that as inevitable.
+
+CONTACT:
+Email: dorianc@moxywolf.com
+Organization: MoxyWolf LLC
+
+ORCID: [To be added if applicable]

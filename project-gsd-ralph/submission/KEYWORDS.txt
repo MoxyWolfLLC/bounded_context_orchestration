@@ -1,0 +1,28 @@
+KEYWORDS FOR SUBMISSION:
+
+Primary Keywords:
+- Large Language Models
+- Context Management
+- Workflow Orchestration
+- State Persistence
+- Multi-Agent Systems
+
+Secondary Keywords:
+- Prompt Engineering
+- Attention Degradation
+- File-Based Persistence
+- Bounded Execution
+- Schema Validation
+
+Research Areas:
+- Artificial Intelligence
+- Natural Language Processing
+- Software Engineering
+- Human-Computer Interaction
+
+Related Topics:
+- Retrieval-Augmented Generation (RAG)
+- Transformer Architecture
+- Memory Systems
+- Prompt Chaining
+- Task Decomposition

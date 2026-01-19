@@ -1,0 +1,244 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Research to Report Handoff",
+  "description": "Handoff from problem-awareness-discovery to moxywolf for report generation",
+  "type": "object",
+  "required": ["validation_rating", "icp_profile", "key_findings", "completion_promise"],
+  "properties": {
+    "validation_rating": {
+      "type": "object",
+      "description": "Overall validation assessment",
+      "required": ["rating", "percentage", "score"],
+      "properties": {
+        "rating": {
+          "type": "string",
+          "enum": ["WEAK", "UNCERTAIN", "PROMISING", "VALIDATED", "EXCEPTIONAL"],
+          "description": "Qualitative validation rating"
+        },
+        "percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Confidence percentage"
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 60,
+          "description": "Composite validation score"
+        },
+        "breakdown": {
+          "type": "object",
+          "description": "Score breakdown by dimension",
+          "properties": {
+            "search_signals": {"type": "number", "minimum": 0, "maximum": 10},
+            "discussion_volume": {"type": "number", "minimum": 0, "maximum": 10},
+            "language_consistency": {"type": "number", "minimum": 0, "maximum": 10},
+            "solution_awareness": {"type": "number", "minimum": 0, "maximum": 10},
+            "icp_clarity": {"type": "number", "minimum": 0, "maximum": 10},
+            "market_timing": {"type": "number", "minimum": 0, "maximum": 10}
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "icp_profile": {
+      "type": "object",
+      "description": "Ideal Customer Profile synthesized from research",
+      "required": ["primary_persona", "pain_intensity"],
+      "properties": {
+        "primary_persona": {
+          "type": "string",
+          "description": "One-sentence persona description",
+          "maxLength": 150
+        },
+        "job_titles": {
+          "type": "array",
+          "description": "Common job titles of ICP",
+          "items": {"type": "string"},
+          "maxItems": 5
+        },
+        "company_signals": {
+          "type": "array",
+          "description": "Company characteristics indicating fit",
+          "items": {"type": "string"},
+          "maxItems": 5
+        },
+        "pain_intensity": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH"],
+          "description": "How intensely ICP feels the problem"
+        },
+        "budget_signals": {
+          "type": "string",
+          "description": "Indicators of willingness/ability to pay",
+          "maxLength": 100
+        },
+        "sophistication": {
+          "type": "string",
+          "enum": ["BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT"],
+          "description": "Technical sophistication level"
+        }
+      },
+      "additionalProperties": false
+    },
+    "key_findings": {
+      "type": "array",
+      "description": "Most important research findings",
+      "items": {
+        "type": "object",
+        "required": ["finding", "source"],
+        "properties": {
+          "finding": {
+            "type": "string",
+            "description": "The finding itself",
+            "maxLength": 200
+          },
+          "source": {
+            "type": "string",
+            "description": "Where this finding came from",
+            "maxLength": 50
+          },
+          "significance": {
+            "type": "string",
+            "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+            "description": "How important this finding is"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 3,
+      "maxItems": 10
+    },
+    "language_gold": {
+      "type": "array",
+      "description": "Exact phrases from users (for copywriting)",
+      "items": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "maxItems": 15
+    },
+    "awareness_distribution": {
+      "type": "object",
+      "description": "Estimated market awareness stage distribution",
+      "properties": {
+        "unaware": {"type": "number", "minimum": 0, "maximum": 100},
+        "problem_aware": {"type": "number", "minimum": 0, "maximum": 100},
+        "solution_aware": {"type": "number", "minimum": 0, "maximum": 100},
+        "product_aware": {"type": "number", "minimum": 0, "maximum": 100},
+        "most_aware": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "recommendations": {
+      "type": "object",
+      "description": "Research-based recommendations",
+      "properties": {
+        "proceed": {
+          "type": "boolean",
+          "description": "Whether to proceed with development"
+        },
+        "next_steps": {
+          "type": "array",
+          "items": {"type": "string", "maxLength": 100},
+          "maxItems": 5
+        },
+        "cautions": {
+          "type": "array",
+          "items": {"type": "string", "maxLength": 100},
+          "maxItems": 3
+        }
+      }
+    },
+    "research_metadata": {
+      "type": "object",
+      "description": "Metadata about the research process",
+      "properties": {
+        "sources_queried": {"type": "integer"},
+        "threads_analyzed": {"type": "integer"},
+        "trends_checked": {"type": "integer"},
+        "total_signals": {"type": "integer"}
+      }
+    },
+    "completion_promise": {
+      "type": "string",
+      "const": "RESEARCH_COMPLETE"
+    }
+  },
+  "additionalProperties": false,
+
+  "examples": [
+    {
+      "validation_rating": {
+        "rating": "VALIDATED",
+        "percentage": 78,
+        "score": 47,
+        "breakdown": {
+          "search_signals": 8,
+          "discussion_volume": 7,
+          "language_consistency": 9,
+          "solution_awareness": 8,
+          "icp_clarity": 8,
+          "market_timing": 7
+        }
+      },
+      "icp_profile": {
+        "primary_persona": "Senior AI Engineer at a growth-stage startup building complex LLM applications",
+        "job_titles": ["AI Engineer", "ML Engineer", "LLM Developer", "AI Architect"],
+        "company_signals": ["Using LLMs in production", "Multi-step workflows", "Quality-sensitive applications"],
+        "pain_intensity": "HIGH",
+        "budget_signals": "Already paying for API costs; willing to invest in tooling",
+        "sophistication": "ADVANCED"
+      },
+      "key_findings": [
+        {
+          "finding": "67 Reddit threads discuss context window limitations in the past 6 months",
+          "source": "Reddit",
+          "significance": "HIGH"
+        },
+        {
+          "finding": "'Lost in the middle' is a known phenomenon with academic documentation",
+          "source": "Web Search",
+          "significance": "CRITICAL"
+        },
+        {
+          "finding": "No dominant solution exists for workflow-level context management",
+          "source": "Competitive Analysis",
+          "significance": "HIGH"
+        }
+      ],
+      "language_gold": [
+        "Why does my LLM forget everything by step 5?",
+        "Context window overflow is killing my pipeline",
+        "Quality degrades after 30K tokens",
+        "Need to manage state across multiple calls"
+      ],
+      "awareness_distribution": {
+        "unaware": 30,
+        "problem_aware": 40,
+        "solution_aware": 20,
+        "product_aware": 8,
+        "most_aware": 2
+      },
+      "recommendations": {
+        "proceed": true,
+        "next_steps": [
+          "Develop clear positioning against RAG",
+          "Create quick-start guide for practitioners",
+          "Build case studies demonstrating quality maintenance"
+        ],
+        "cautions": [
+          "Market may conflate this with RAG solutions",
+          "Need to educate on bounded context concept"
+        ]
+      },
+      "research_metadata": {
+        "sources_queried": 5,
+        "threads_analyzed": 67,
+        "trends_checked": 12,
+        "total_signals": 84
+      },
+      "completion_promise": "RESEARCH_COMPLETE"
+    }
+  ]
+}
